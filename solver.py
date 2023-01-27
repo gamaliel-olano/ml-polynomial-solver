@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[4]:
-
-
 import argparse
 from tinygrad.tensor import Tensor
 import tinygrad.nn.optim as optim
@@ -21,7 +18,7 @@ def argparser():
 # Define model using tinygrad
 class TinyModel():
     # Generate random initial c_preds values
-    def __init__(self, degree, batch, args):
+    def __init__(self, degree, epoch, batch):
         self.n = degree + 1
         self.epoch = epoch
         self.batch = batch
@@ -35,7 +32,7 @@ class TinyModel():
         return y_pred  
 
 # Train model using SGD optimizer
-def train(train_set, optimizer, batch, args):
+def train(train_set, optimizer, epoch, batch):
     n = 0
     for i in tqdm(range(epoch)):
         optimizer.zero_grad()
@@ -64,13 +61,17 @@ def calc_loss(test_set):
     return loss
 
 def main(args):
+    epoch = args.epoch
+    lr = args.lr
+    size = args.size
+    
     # Read data_train and data_test csv files then shuffle order
     train_set = np.loadtxt('data_train.csv', skiprows=1, delimiter=',')
     np.random.shuffle(train_set)
     test_set = np.loadtxt('data_test.csv', skiprows=1, delimiter=',')
     np.random.shuffle(test_set)
 
-    # Number of batces
+    # Number of batches
     batch = round(len(train_set)/size)
 
     # Convert read data into tinygrad Tensor
@@ -130,4 +131,3 @@ if '__name__' == '__main__':
     # epoch = 20
     # lr = 0.0001
     # size = 4
-
