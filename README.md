@@ -8,7 +8,7 @@ Argparse was used with default values for the following variables: epoch, lr, si
 
 Make sure that data_train.csv and data_test.csv files are on the same folder as solver.py
 
-# update
+# Update
 
 Added example.ipynb which shows how the code runs without using the argparse function.
 
